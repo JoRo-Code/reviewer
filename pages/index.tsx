@@ -84,21 +84,18 @@ export default function Home() {
     let done = false;
     let code = '';
 
-    //while (!done) {
-      //const { value, done: doneReading } = await reader.read();
-      //done = doneReading;
-      //const chunkValue = decoder.decode(value);
+    while (!done) {
+      const { value, done: doneReading } = await reader.read();
+      done = doneReading;
+      const chunkValue = decoder.decode(value);
 
-      //code += chunkValue;
+      code += chunkValue;
 
-      //setOutputCode((prevCode) => prevCode + chunkValue);
-    //}
+      setOutputCode((prevCode) => prevCode + chunkValue);
+    }
 
-    let html = `
-    <p>When my family and I <span style="background-color: #ADD8E6" title="Incorrect verb form. Use 'go' instead of 'goes' as the subject 'my family and I' is plural.">goes</span> to the beach, we always <span style="background-color: #ADD8E6" title="Incorrect verb form. Use 'bring' instead of 'brings' as the subject 'we' is plural.">brings</span> a picnic. The sun, the sand, <span style="background-color: #FFFF00" title="Unclear reference. Consider revising to 'it's all so relaxing.'">its</span> all so relaxing. <span style="background-color: #98FB98" title="Consider revising for clarity. Perhaps 'However, be careful...' would work better.">Though</span>, be careful not to get sunburn, it can really <span style="background-color: #ADD8E6" title="Incorrect verb form. Use 'spoil' instead of 'spoils' as the subject 'it' is singular.">spoils</span> the day.</p>
-    `;
-
-    setOutputCode(html);
+    //const html = `<p>The quick brown fox jumps over the <span style="background-color: #8B0000" title="Typographical error. The correct spelling is 'lazy'.">lazzy</span> dog. <span style="background-color: #800080" title="Ambiguous pronoun reference. Consider revising to 'This is an old sentence...'">It's</span> an old sentence used for demonstrating all <span style="background-color: #006400" title="Consider revising for clarity. Perhaps 'all the letters of the alphabet' would work better.">alphabets</span>. However <span style="background-color: #00008B" title="Incorrect form. Use 'it's' instead of 'it' to mean 'it is'.">it's</span> not much <span style="background-color: #8B0000" title="Incorrect word usage. Use 'useful' instead of 'usefull'.">usefull</span> outside that.</p>`;
+    //setOutputCode(html);
 
     setLoading(false);
     setHasTranslated(true);
