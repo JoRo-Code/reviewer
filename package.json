@@ -12,6 +12,7 @@
     "@codemirror/legacy-modes": "^6.3.2",
     "@uiw/codemirror-theme-tokyo-night": "^4.19.11",
     "@uiw/react-codemirror": "^4.19.11",
+    "dompurify": "^3.0.3",
     "endent": "^2.1.0",
     "eventsource-parser": "^1.0.0",
     "next": "13.2.4",
@@ -19,6 +20,7 @@
     "react-dom": "18.2.0"
   },
   "devDependencies": {
+    "@types/dompurify": "^3.0.2",
     "@types/node": "18.15.11",
     "@types/react": "18.0.31",
     "@types/react-dom": "18.0.11",

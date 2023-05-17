@@ -1,5 +1,6 @@
 import { APIKeyInput } from '@/components/APIKeyInput';
 import { CodeBlock } from '@/components/CodeBlock';
+import { HtmlBlock } from '@/components/HtmlBlock';
 import { LanguageSelect } from '@/components/LanguageSelect';
 import { ModelSelect } from '@/components/ModelSelect';
 import { TextBlock } from '@/components/TextBlock';
@@ -20,24 +21,24 @@ export default function Home() {
   const handleTranslate = async () => {
     const maxCodeLength = model === 'gpt-3.5-turbo' ? 6000 : 12000;
 
-    if (!apiKey) {
-      alert('Please enter an API key.');
-      return;
-    }
+    //if (!apiKey) {
+      //alert('Please enter an API key.');
+      //return;
+    //}
 
-    if (inputLanguage === outputLanguage) {
-      alert('Please select different languages.');
-      return;
-    }
+    //if (inputLanguage === outputLanguage) {
+      //alert('Please select different languages.');
+      //return;
+    //}
 
     if (!inputCode) {
-      alert('Please enter some code.');
+      alert('Please enter some text to be reviewed.');
       return;
     }
 
     if (inputCode.length > maxCodeLength) {
       alert(
-        `Please enter code less than ${maxCodeLength} characters. You are currently at ${inputCode.length} characters.`,
+        `Please enter text less than ${maxCodeLength} characters. You are currently at ${inputCode.length} characters.`,
       );
       return;
     }
@@ -83,15 +84,21 @@ export default function Home() {
     let done = false;
     let code = '';
 
-    while (!done) {
-      const { value, done: doneReading } = await reader.read();
-      done = doneReading;
-      const chunkValue = decoder.decode(value);
+    //while (!done) {
+      //const { value, done: doneReading } = await reader.read();
+      //done = doneReading;
+      //const chunkValue = decoder.decode(value);
 
-      code += chunkValue;
+      //code += chunkValue;
 
-      setOutputCode((prevCode) => prevCode + chunkValue);
-    }
+      //setOutputCode((prevCode) => prevCode + chunkValue);
+    //}
+
+    let html = `
+    <p>When my family and I <span style="background-color: #ADD8E6" title="Incorrect verb form. Use 'go' instead of 'goes' as the subject 'my family and I' is plural.">goes</span> to the beach, we always <span style="background-color: #ADD8E6" title="Incorrect verb form. Use 'bring' instead of 'brings' as the subject 'we' is plural.">brings</span> a picnic. The sun, the sand, <span style="background-color: #FFFF00" title="Unclear reference. Consider revising to 'it's all so relaxing.'">its</span> all so relaxing. <span style="background-color: #98FB98" title="Consider revising for clarity. Perhaps 'However, be careful...' would work better.">Though</span>, be careful not to get sunburn, it can really <span style="background-color: #ADD8E6" title="Incorrect verb form. Use 'spoil' instead of 'spoils' as the subject 'it' is singular.">spoils</span> the day.</p>
+    `;
+
+    setOutputCode(html);
 
     setLoading(false);
     setHasTranslated(true);
@@ -130,21 +137,17 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Code Translator</title>
+        <title>Reviewer</title>
         <meta
           name="description"
-          content="Use AI to translate code from one language to another."
+          content="Use AI to review text"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex h-full min-h-screen flex-col items-center bg-[#0E1117] px-4 pb-20 text-neutral-200 sm:px-10">
         <div className="mt-10 flex flex-col items-center justify-center sm:mt-20">
-          <div className="text-4xl font-bold">AI Code Translator</div>
-        </div>
-
-        <div className="mt-6 text-center text-sm">
-          <APIKeyInput apiKey={apiKey} onChange={handleApiKeyChange} />
+          <div className="text-4xl font-bold">AI Reviewer</div>
         </div>
 
         <div className="mt-2 flex items-center space-x-2">
@@ -155,7 +158,7 @@ export default function Home() {
             onClick={() => handleTranslate()}
             disabled={loading}
           >
-            {loading ? 'Translating...' : 'Translate'}
+            {loading ? 'Running...' : 'Run'}
           </button>
         </div>
 
@@ -164,24 +167,13 @@ export default function Home() {
             ? 'Translating...'
             : hasTranslated
             ? 'Output copied to clipboard!'
-            : 'Enter some code and click "Translate"'}
+            : 'Enter some text and click "Run"'}
         </div>
 
         <div className="mt-6 flex w-full max-w-[1200px] flex-col justify-between sm:flex-row sm:space-x-4">
           <div className="h-100 flex flex-col justify-center space-y-2 sm:w-2/4">
             <div className="text-center text-xl font-bold">Input</div>
 
-            <LanguageSelect
-              language={inputLanguage}
-              onChange={(value) => {
-                setInputLanguage(value);
-                setHasTranslated(false);
-                setInputCode('');
-                setOutputCode('');
-              }}
-            />
-
-            {inputLanguage === 'Natural Language' ? (
               <TextBlock
                 text={inputCode}
                 editable={!loading}
@@ -190,33 +182,13 @@ export default function Home() {
                   setHasTranslated(false);
                 }}
               />
-            ) : (
-              <CodeBlock
-                code={inputCode}
-                editable={!loading}
-                onChange={(value) => {
-                  setInputCode(value);
-                  setHasTranslated(false);
-                }}
-              />
-            )}
+
           </div>
           <div className="mt-8 flex h-full flex-col justify-center space-y-2 sm:mt-0 sm:w-2/4">
             <div className="text-center text-xl font-bold">Output</div>
+ 
+              <HtmlBlock html={outputCode} />
 
-            <LanguageSelect
-              language={outputLanguage}
-              onChange={(value) => {
-                setOutputLanguage(value);
-                setOutputCode('');
-              }}
-            />
-
-            {outputLanguage === 'Natural Language' ? (
-              <TextBlock text={outputCode} />
-            ) : (
-              <CodeBlock code={outputCode} />
-            )}
           </div>
         </div>
       </div>
