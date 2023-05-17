@@ -21,16 +21,6 @@ export default function Home() {
   const handleTranslate = async () => {
     const maxCodeLength = model === 'gpt-3.5-turbo' ? 6000 : 12000;
 
-    //if (!apiKey) {
-      //alert('Please enter an API key.');
-      //return;
-    //}
-
-    //if (inputLanguage === outputLanguage) {
-      //alert('Please select different languages.');
-      //return;
-    //}
-
     if (!inputCode) {
       alert('Please enter some text to be reviewed.');
       return;
@@ -94,9 +84,6 @@ export default function Home() {
       setOutputCode((prevCode) => prevCode + chunkValue);
     }
 
-    //const html = `<p>The quick brown fox jumps over the <span style="background-color: #8B0000" title="Typographical error. The correct spelling is 'lazy'.">lazzy</span> dog. <span style="background-color: #800080" title="Ambiguous pronoun reference. Consider revising to 'This is an old sentence...'">It's</span> an old sentence used for demonstrating all <span style="background-color: #006400" title="Consider revising for clarity. Perhaps 'all the letters of the alphabet' would work better.">alphabets</span>. However <span style="background-color: #00008B" title="Incorrect form. Use 'it's' instead of 'it' to mean 'it is'.">it's</span> not much <span style="background-color: #8B0000" title="Incorrect word usage. Use 'useful' instead of 'usefull'.">usefull</span> outside that.</p>`;
-    //setOutputCode(html);
-
     setLoading(false);
     setHasTranslated(true);
     copyToClipboard(code);
@@ -148,7 +135,6 @@ export default function Home() {
         </div>
 
         <div className="mt-2 flex items-center space-x-2">
-          <ModelSelect model={model} onChange={(value) => setModel(value)} />
 
           <button
             className="w-[140px] cursor-pointer rounded-md bg-violet-500 px-4 py-2 font-bold hover:bg-violet-600 active:bg-violet-700"
