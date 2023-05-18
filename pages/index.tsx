@@ -8,28 +8,32 @@ import { OpenAIModel, TranslateBody } from '@/types/types';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import Logo from '../public/logo.png';
+import Image from "next/image";
+
 
 export default function Home() {
+  const DEFAULT_MODEL = 'gpt-3.5-turbo';
   const [inputLanguage, setInputLanguage] = useState<string>('JavaScript');
   const [outputLanguage, setOutputLanguage] = useState<string>('Python');
   const [inputCode, setInputCode] = useState<string>('');
   const [outputCode, setOutputCode] = useState<string>('');
-  const [model, setModel] = useState<OpenAIModel>('gpt-3.5-turbo');
+  const [model, setModel] = useState<OpenAIModel>(DEFAULT_MODEL);
   const [loading, setLoading] = useState<boolean>(false);
   const [hasTranslated, setHasTranslated] = useState<boolean>(false);
   const [apiKey, setApiKey] = useState<string>('');
 
   const handleTranslate = async () => {
-    const maxCodeLength = model === 'gpt-3.5-turbo' ? 6000 : 12000;
+    const maxInputLength = model === DEFAULT_MODEL ? 4000 : 12000;
 
     if (!inputCode) {
       alert('Please enter some text to be reviewed.');
       return;
     }
 
-    if (inputCode.length > maxCodeLength) {
+    if (inputCode.length > maxInputLength) {
       alert(
-        `Please enter text less than ${maxCodeLength} characters. You are currently at ${inputCode.length} characters.`,
+        `Please enter text less than ${maxInputLength} characters. You are currently at ${inputCode.length} characters.`,
       );
       return;
     }
@@ -130,9 +134,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+        
+
       <div className="flex h-full min-h-screen flex-col items-center bg-[#0E1117] px-4 pb-20 text-neutral-200 sm:px-10">
+
         <div className="mt-10 flex flex-col items-center justify-center sm:mt-20">
-          <div className="text-4xl font-bold">AI Reviewer</div>
+          <div className="p-4">
+            <Image src={Logo} alt="Logo" width={40} height={40} />
+          </div>
+          <div className="text-4xl font-bold">Feedback like never before</div>
         </div>
 
         <div className="mt-2 flex items-center space-x-2">
@@ -148,7 +158,7 @@ export default function Home() {
 
         <div className="mt-2 text-center text-xs">
           {loading
-            ? 'scanning...'
+            ? ''
             : hasTranslated
             ? 'Output copied to clipboard!'
             : 'Enter some text and click "Run"'}
@@ -176,7 +186,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      
+
       <Analytics/>
     </>
   );
