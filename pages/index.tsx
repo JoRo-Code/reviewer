@@ -10,7 +10,59 @@ import { useEffect, useState } from 'react';
 import { Analytics } from '@vercel/analytics/react';
 import Logo from '../public/logo.png';
 import Image from "next/image";
+import { ProgressBar } from 'react-loader-spinner';
 
+function loader() {
+  return (
+    <div>
+      <ProgressBar
+        height="80"
+        width="80"
+        ariaLabel="loading"
+        barColor="white"
+        borderColor=""
+      />
+    </div>
+  );
+}
+
+function runButton() {
+  
+}
+
+const loadingMessages = [
+  "Polishing your perspective...",
+  "Fueling your understanding...",
+  "Sparkling your thoughts...",
+  "Casting light on your text...",
+  "Gathering wisdom from your words...",
+  "Guiding you towards insight...",
+  "Gleaning insights from your input...",
+  "Enlightening moments ahead...",
+  "Deepening your text comprehension...",
+  "Bathing your words in wisdom...",
+  "Decoding your thoughts...",
+  "Brightening your knowledge...",
+  "Enhancing clarity...",
+  "Unfolding your ideas...",
+  "Empowering your text...",
+  "Lighting the way to feedback...",
+  "Illuminating feedback in progress...",
+  "Delving into your words...",
+  "Clarifying your content...",
+  "Kindling insights...",
+  "Analyzing your text...",
+  "Generating feedback...",
+  "Reviewing your input...",
+  "Assessing your submission...",
+  "Preparing your review...",
+  "Extracting insights...",
+  "Evaluating your content...",
+];
+
+function randomElement<T>(array: T[]): T {
+  return array[Math.floor(Math.random() * array.length)];
+}
 
 export default function Home() {
   const DEFAULT_MODEL = 'gpt-3.5-turbo';
@@ -22,6 +74,7 @@ export default function Home() {
   const [loading, setLoading] = useState<boolean>(false);
   const [hasTranslated, setHasTranslated] = useState<boolean>(false);
   const [apiKey, setApiKey] = useState<string>('');
+  const [loadingMessage, setLoadingMessage] = useState<string>(randomElement(loadingMessages));
 
   const handleTranslate = async () => {
     const maxInputLength = model === DEFAULT_MODEL ? 4000 : 12000;
@@ -79,12 +132,18 @@ export default function Home() {
     let done = false;
     let code = '';
 
+    let i = 0;
     while (!done) {
       const { value, done: doneReading } = await reader.read();
       done = doneReading;
       const chunkValue = decoder.decode(value);
 
       code += chunkValue;
+
+      i++;
+      if (i % 25 == 0) {
+        setLoadingMessage(randomElement(loadingMessages))
+      }
 
       setOutputCode((prevCode) => prevCode + chunkValue);
     }
@@ -150,19 +209,25 @@ export default function Home() {
         </div>
 
         <div className="mt-2 flex items-center space-x-2">
+        
+        {loading ? loader(): 
 
-          <button
-            className="w-[140px] cursor-pointer rounded-md bg-violet-500 px-4 py-2 font-bold hover:bg-violet-600 active:bg-violet-700"
-            onClick={() => handleTranslate()}
-            disabled={loading}
-          >
-            {loading ? 'Running...' : 'Run'}
-          </button>
+<button
+    className="w-[140px] cursor-pointer rounded-lg bg-white text-black font-extrabold border-0 py-2 px-6 focus:outline-none hover:bg-white rounded text-xl transition-all duration-200 ease-in-out transform hover:scale-110 disabled:opacity-50"
+    onClick={() => handleTranslate()}
+    disabled={loading}
+>
+    {'Run'} 
+</button>
+        
+        }
+
+
         </div>
 
         <div className="mt-2 text-center text-xs">
           {loading
-            ? ''
+            ? loadingMessage
             : hasTranslated
             ? 'Output copied to clipboard!'
             : 'Enter some text and click "Run"'}

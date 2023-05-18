@@ -6,8 +6,6 @@ import CodeMirror from '@uiw/react-codemirror';
 import { FC, useEffect, useState } from 'react';
 import DOMPurify from 'isomorphic-dompurify';
 
-
-
 interface Props {
   html: string;
   editable?: boolean;
@@ -41,7 +39,8 @@ export const HtmlBlock: FC<Props> = ({
       >
         {copyText}
       </button>
-
-    <div dangerouslySetInnerHTML={{ __html: sanitizedHTML }} /></div>
+    <div className="min-h-[500px] w-full bg-[#1A1B26] p-4 text-[15px] text-neutral-200 focus:outline-none">
+        <div dangerouslySetInnerHTML={{ __html: sanitizedHTML }} /></div>
+    </div>
   );
 };
