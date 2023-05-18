@@ -7,6 +7,7 @@ import { TextBlock } from '@/components/TextBlock';
 import { OpenAIModel, TranslateBody } from '@/types/types';
 import Head from 'next/head';
 import { useEffect, useState } from 'react';
+import { Analytics } from '@vercel/analytics/react';
 
 export default function Home() {
   const [inputLanguage, setInputLanguage] = useState<string>('JavaScript');
@@ -147,7 +148,7 @@ export default function Home() {
 
         <div className="mt-2 text-center text-xs">
           {loading
-            ? 'Translating...'
+            ? 'scanning...'
             : hasTranslated
             ? 'Output copied to clipboard!'
             : 'Enter some text and click "Run"'}
@@ -175,6 +176,8 @@ export default function Home() {
           </div>
         </div>
       </div>
+      
+      <Analytics/>
     </>
   );
 }
