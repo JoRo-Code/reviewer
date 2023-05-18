@@ -40,7 +40,7 @@ Here's a clear example of what you should do:
   
   ${INPUT_OUTPUT_EXAMPLE}
 
-  Your goal is to help improve the overall quality and clarity of the text.
+  Your goal is to help improve the overall quality and clarity of the text, but don't change anything. Only comment on the input text.
 
   Input text:
   ${inputCode}
