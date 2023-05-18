@@ -77,7 +77,7 @@ export default function Home() {
   const [loadingMessage, setLoadingMessage] = useState<string>(randomElement(loadingMessages));
 
   const handleTranslate = async () => {
-    const maxInputLength = model === DEFAULT_MODEL ? 4000 : 12000;
+    const maxInputLength = model === DEFAULT_MODEL ? 2000 : 12000;
 
     if (!inputCode) {
       alert('Please enter some text to be reviewed.');
@@ -86,7 +86,12 @@ export default function Home() {
 
     if (inputCode.length > maxInputLength) {
       alert(
-        `Please enter text less than ${maxInputLength} characters. You are currently at ${inputCode.length} characters.`,
+        `
+        Currently only a maximum of ${maxInputLength} characters is supported!
+                                We're working on it :D
+
+                              You are at ${inputCode.length} characters.
+        `,
       );
       return;
     }

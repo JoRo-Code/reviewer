@@ -50,6 +50,7 @@ Colors:
 
  Make sure to only span the part of the text that is of interest for the comment, and insert the appropriate comment in the title-attribute.
  Also, use <hr>-tags to separate the feedback list and annotated text.
+
 `
 
 const createPrompt = (
@@ -61,7 +62,12 @@ const createPrompt = (
   ${TASK_DESCRIPTION}
 
   Input text:
+  -----
   ${inputCode}
+  -----
+
+  You MUST include your comments as in the annotated text. Make sure to wrap something in spans with your comments.
+
   `;
 
 export const OpenAIStream = async (
