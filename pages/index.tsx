@@ -14,6 +14,10 @@ import { ProgressBar } from 'react-loader-spinner';
 import { InfoButton } from '@/components/InfoButton';
 import { Button } from "@/components/ui/button"
 
+import ReactGA from 'react-ga';
+const TRACKING_ID = 'G-3E00BVHW0V';
+ReactGA.initialize(TRACKING_ID);
+
 function loader() {
   return (
     <div>
@@ -170,6 +174,10 @@ export default function Home() {
 
     localStorage.setItem('apiKey', value);
   };
+
+  useEffect(() => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
+  },[]);
 
   useEffect(() => {
     if (hasTranslated) {
