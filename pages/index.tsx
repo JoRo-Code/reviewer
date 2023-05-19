@@ -196,11 +196,27 @@ export default function Home() {
   return (
     <>
       <Head>
-        <title>Deepenlight</title>
+        <title>Deepenlight: automate the text review process for free</title>
         <meta
           name="description"
-          content="Use AI to review text"
+          content="Use AI to review your text: Get insights and feedback instantly on your text. Let the computer do your tedious work!"
         />
+        <meta
+          name="keywords"
+          content="AI, insights, enlightment, improve text, feedback, feedback generation, review, review process, review automation, automation, text review, text feedback, instant feedback, feedback program, review program, free feedback"
+        />
+        <link rel="canonical" href="https://deepenlight.com" />
+        <meta
+          property='og:title'
+          content="Deepenlight - get feedback and insights on your written work instantly"
+        />
+        <meta
+          property='og:description'
+          content="Use AI to review your text: Get insights and feedback instantly on your text. Let the computer do your tedious work!"
+        />
+        <meta property='og:type' content="website"/>
+        <meta property='og:url' content="https://deepenlight.com"/>
+
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/images/favicon.ico" />
         <link rel="shortcut icon" href="/images/favicon.ico" />
