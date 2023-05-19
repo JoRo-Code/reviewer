@@ -11,6 +11,8 @@ import { Analytics } from '@vercel/analytics/react';
 import Logo from '../public/logo.png';
 import Image from "next/image";
 import { ProgressBar } from 'react-loader-spinner';
+import { InfoButton } from '@/components/InfoButton';
+import { Button } from "@/components/ui/button"
 
 function loader() {
   return (
@@ -24,10 +26,6 @@ function loader() {
       />
     </div>
   );
-}
-
-function runButton() {
-  
 }
 
 const loadingMessages = [
@@ -196,13 +194,13 @@ export default function Home() {
           content="Use AI to review text"
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-          <link rel="icon" href="/images/favicon.ico" />
-          <link rel="shortcut icon" href="/images/favicon.ico" />
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
-          <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png"/>
-          <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png"/>
+        <link rel="icon" href="/images/favicon.ico" />
+        <link rel="shortcut icon" href="/images/favicon.ico" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png" />
       </Head>
-        
+
 
       <div className="flex h-full min-h-screen flex-col items-center bg-[#0E1117] px-4 pb-20 text-neutral-200 sm:px-10">
 
@@ -210,58 +208,65 @@ export default function Home() {
           <div className="p-4">
             <Image src={Logo} alt="Logo" width={40} height={40} />
           </div>
-          <div className="text-4xl font-bold">Feedback like never before</div>
+
+          <div className="relative pr-6">
+            <div className="text-4xl font-bold">Feedback like never before</div>
+            <div className="absolute top-0 right-0">
+              <InfoButton/>
+            </div>
+          </div>
+
         </div>
 
         <div className="mt-2 flex items-center space-x-2">
-        
-        {loading ? loader(): 
 
-<button
-    className="w-[140px] cursor-pointer rounded-lg bg-white text-black font-extrabold border-0 py-2 px-6 focus:outline-none hover:bg-white rounded text-xl transition-all duration-200 ease-in-out transform hover:scale-110 disabled:opacity-50"
-    onClick={() => handleTranslate()}
-    disabled={loading}
->
-    {'Run'} 
-</button>
-        
-        }
+          {loading ? loader() :
+
+            <button
+              className="w-[140px] cursor-pointer rounded-lg bg-white text-black font-extrabold border-0 py-2 px-6 focus:outline-none hover:bg-white rounded text-xl transition-all duration-200 ease-in-out transform hover:scale-110 disabled:opacity-50"
+              onClick={() => handleTranslate()}
+              disabled={loading}
+            >
+              {'Run'}
+            </button>
 
 
+          }
         </div>
+
 
         <div className="mt-2 text-center text-xs">
           {loading
             ? loadingMessage
             : hasTranslated
-            ? 'Output copied to clipboard!'
-            : 'Enter some text and click "Run"'}
+              ? 'Output copied to clipboard!'
+              : 'Enter some text and click "Run"'}
         </div>
 
         <div className="mt-6 flex w-full max-w-[1200px] flex-col justify-between sm:flex-row sm:space-x-4">
           <div className="h-100 flex flex-col justify-center space-y-2 sm:w-2/4">
             <div className="text-center text-xl font-bold">Input</div>
 
-              <TextBlock
-                text={inputCode}
-                editable={!loading}
-                onChange={(value) => {
-                  setInputCode(value);
-                  setHasTranslated(false);
-                }}
-              />
+            <TextBlock
+              text={inputCode}
+              editable={!loading}
+              onChange={(value) => {
+                setInputCode(value);
+                setHasTranslated(false);
+              }}
+            />
 
           </div>
           <div className="mt-8 flex h-full flex-col justify-center space-y-2 sm:mt-0 sm:w-2/4">
             <div className="text-center text-xl font-bold">Output</div>
- 
-              <HtmlBlock html={outputCode} />
+
+            <HtmlBlock html={outputCode} />
 
           </div>
         </div>
       </div>
 
-      <Analytics/>
+      <Analytics />
     </>
   );
 }
