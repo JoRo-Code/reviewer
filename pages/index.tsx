@@ -209,12 +209,20 @@ export default function Home() {
             <Image src={Logo} alt="Logo" width={40} height={40} />
           </div>
 
-          <div className="relative pr-6">
-            <div className="text-4xl font-bold">Feedback like never before</div>
-            <div className="absolute top-0 right-0">
-              <InfoButton/>
+          <div className="relative flex justify-center items-center h-full">
+            <div className="text-4xl font-bold text-center relative">
+              Feedback like never <span className="relative">before
+                <div className="absolute top-[20%] right-[-20%] transform -translate-y-[50%]">
+                  <InfoButton />
+                </div>
+              </span>
             </div>
           </div>
+
+
+
+
+
 
         </div>
 
